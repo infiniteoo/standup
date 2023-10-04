@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import Avatar from "./avatar";
 
 export default function AccountForm({ session }) {
   const supabase = createClientComponentClient();
@@ -65,6 +66,15 @@ export default function AccountForm({ session }) {
 
   return (
     <div className="bg-white p-8 rounded shadow-md max-w-lg mx-auto mt-10">
+      <Avatar
+        uid={user.id}
+        url={avatar_url}
+        size={150}
+        onUpload={(url) => {
+          setAvatarUrl(url);
+          updateProfile({ fullname, username, website, avatar_url: url });
+        }}
+      />
       <div className="mb-4">
         <label
           htmlFor="email"
